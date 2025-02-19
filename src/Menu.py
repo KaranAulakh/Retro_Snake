@@ -6,8 +6,8 @@
 	Handles rendering of each menu page
 	- In the current usage only one menu object is being created
 		- Would it be more helpful to make a page class, and invoke page.render() to showcase it
-		- For optimal performance pages can then be creatd and stored in a tree class that point to the next and prev pages
-			- For normal gameplay this seems like overkill and unnecessary, however, that seems to be the ideal solution  
+		- For optimal performance pages can then be created and stored in a tree that point to the next and prev pages
+			- However, for the sake of this project that seems like overkill and unnecessary  
 '''
 
 import pygame
