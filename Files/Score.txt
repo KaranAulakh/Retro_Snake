@@ -1,8 +1,8 @@
 HighScores | DO NOT EDIT
 
-Clas_0.20: 25
-Clas_0.15: 15
-Clas_0.10: 19
-Wall_0.20: 18
-Wall_0.15: 21
-Wall_0.10: 14
+CLAS-0.20-25
+CLAS-0.15-15
+CLAS-0.10-19
+WALL-0.20-18
+WALL-0.15-21
+WALL-0.10-10

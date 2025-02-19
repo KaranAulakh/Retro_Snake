@@ -16,7 +16,7 @@ WHITE = (255, 255, 255)
 DARK_BLUE = (0, 0, 75)
 
 
-class snake:
+class Snake:
 	position = [[400, 320], [400 + BLOCK_SIZE, 320], [400 + (2 * BLOCK_SIZE), 320], [400 + (3 * BLOCK_SIZE), 320]]
 	move = 0
 	previous_move = 0
@@ -33,11 +33,10 @@ class snake:
 	def move_player(self, block_swallowed_bool, screen):
 		head_snake = len(self.position) - 1
 
-
 		#  Player move index: 0 = right, 1 = down, 2 = left, 3 = up
 		if (self.move == 0): # and self.previous_move != 2
-				self.position.append([self.position[head_snake][0] + BLOCK_SIZE, self.position[head_snake][1]])
-				self.previous_move = 0
+			self.position.append([self.position[head_snake][0] + BLOCK_SIZE, self.position[head_snake][1]])
+			self.previous_move = 0
 		elif (self.move == 1): # and self.previous_move != 3
 			self.position.append([self.position[head_snake][0], self.position[head_snake][1] + BLOCK_SIZE])
 			self.previous_move = 1
@@ -55,7 +54,7 @@ class snake:
 				pygame.draw.rect(screen, self.color, (self.position[i][0], self.position[i][1], BLOCK_SIZE - ((len(self.position) - i)/6), BLOCK_SIZE - ((len(self.position) - i)/6)), border_radius=10)
 				pygame.draw.rect(screen, DARK_BLUE, (self.position[i][0], self.position[i][1], BLOCK_SIZE - ((len(self.position) - i)/6), BLOCK_SIZE - ((len(self.position) - i)/6)), 1, border_radius=10)
 
-		else :
+		else:
 
 			for i in range(len(self.position)):
 				pygame.draw.rect(screen, self.secondary_color, (self.position[i][0], self.position[i][1], BLOCK_SIZE - ((len(self.position) - i)/6), BLOCK_SIZE - ((len(self.position) - i)/6)), border_radius=10)
@@ -98,8 +97,6 @@ class snake:
 		return False
 
 	def collision_manager_2player(self, snake):
-
-
 		# Collision with screen
 		if (self.position[len(self.position)-1][0] <= 0 and self.move == 2 or self.position[len(self.position)-1][0] >= SCREEN_WIDTH - BLOCK_SIZE and self.move == 0
 			or self.position[len(self.position)-1][1] <= 0 and self.move == 3 or self.position[len(self.position)-1][1] >= SCREEN_HEIGHT - BLOCK_SIZE and self.move == 1):

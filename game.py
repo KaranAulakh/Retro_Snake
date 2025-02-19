@@ -9,7 +9,7 @@
 import pygame
 import random
 import time
-import snake
+import Snake
 import sys
 
 
@@ -38,34 +38,34 @@ ORANGE = (255, 220, 0)
 '''                      '''
 
 def read_high_score(game_mode):
-	with open('Files/score.txt') as file :
-		for line in file :
-			if str(game_mode) in line : 
-				return line[11:]
+	with open('Files/score.txt') as file:
+		for line in file:
+			if str(game_mode) in line: 
+				return line[10:]
 
 	return -1 
 
 def write_high_score(game_mode, score):
 	# Find the line needed to edit
-	with open('Files/score.txt') as file_r :
+	with open('Files/score.txt') as file_r:
 		line_num = 0
-		for line in file_r :
-			if str(game_mode) in line : 
+		for line in file_r:
+			if str(game_mode) in line: 
 				break 
 			line_num += 1
 
 	# Load the file in data, line by line
-	with open('Files/score.txt') as file_r :	
+	with open('Files/score.txt') as file_r:	
 		data = file_r.readlines()
 
 	# Checks if line was not found, prints error and returns out of function
-	if (line_num >= len(data)) :
+	if (line_num >= len(data)):
 		print ("Error Line not Found")
 		return -1
 
 	# Changes the appropriate line number to the new score and saves it within the file	
-	data[line_num] = game_mode + ": "+ str(score) + '\n'
-	with open('Files/score.txt', 'w') as file_w : 
+	data[line_num] = game_mode + "-"+ str(score) + '\n'
+	with open('Files/score.txt', 'w') as file_w: 
 		file_w.writelines(data)
 
 	return 0
@@ -81,7 +81,7 @@ def create_block(block_pos, block_swallowed_bool, screen, color_switch, snake):
 	x = y = -1
 
 	if (block_swallowed_bool):
-		while spot_taken :
+		while spot_taken:
 			spot_taken = False
 			x = random.randint(1, int(SCREEN_WIDTH/BLOCK_SIZE) - 2) * BLOCK_SIZE
 			y = random.randint(1, int(SCREEN_HEIGHT/BLOCK_SIZE) - 2) * BLOCK_SIZE
@@ -96,9 +96,9 @@ def create_block(block_pos, block_swallowed_bool, screen, color_switch, snake):
 		block_swallowed_bool = False
 
 
-	if color_switch :
+	if color_switch:
 		pygame.draw.circle(screen, YELLOW, [block_pos[0] + BLOCK_SIZE/2, block_pos[1] + BLOCK_SIZE/2], BLOCK_SIZE/2)
-	else :
+	else:
 		pygame.draw.circle(screen, ORANGE, [block_pos[0] + BLOCK_SIZE/2, block_pos[1] + BLOCK_SIZE/2], BLOCK_SIZE/2)
 
 
@@ -109,7 +109,7 @@ def create_block_2P(block_pos, block_swallowed_bool, screen, color_switch, snake
 	x = y = -1
 
 	if (block_swallowed_bool):
-		while spot_taken :
+		while spot_taken:
 			spot_taken = False
 			x = random.randint(1, int(SCREEN_WIDTH/BLOCK_SIZE) - 2) * BLOCK_SIZE
 			y = random.randint(1, int(SCREEN_HEIGHT/BLOCK_SIZE) - 2) * BLOCK_SIZE
@@ -128,9 +128,9 @@ def create_block_2P(block_pos, block_swallowed_bool, screen, color_switch, snake
 		block_swallowed_bool = False
 
 
-	if color_switch :
+	if color_switch:
 		pygame.draw.circle(screen, YELLOW, [block_pos[0] + BLOCK_SIZE/2, block_pos[1] + BLOCK_SIZE/2], BLOCK_SIZE/2)
-	else :
+	else:
 		pygame.draw.circle(screen, ORANGE, [block_pos[0] + BLOCK_SIZE/2, block_pos[1] + BLOCK_SIZE/2], BLOCK_SIZE/2)
 
 
@@ -141,7 +141,7 @@ def create_block_wall(block_pos, block_swallowed_bool, screen, color_switch, wal
 	x = y = -1
 
 	if (block_swallowed_bool):
-		while spot_taken :
+		while spot_taken:
 			spot_taken = False
 			x = random.randint(1, int(SCREEN_WIDTH/BLOCK_SIZE) - 2) * BLOCK_SIZE
 			y = random.randint(1, int(SCREEN_HEIGHT/BLOCK_SIZE) - 2) * BLOCK_SIZE
@@ -161,9 +161,9 @@ def create_block_wall(block_pos, block_swallowed_bool, screen, color_switch, wal
 		block_swallowed_bool = False
 
 
-	if color_switch :
+	if color_switch:
 		pygame.draw.circle(screen, YELLOW, [block_pos[0]+BLOCK_SIZE/2, block_pos[1]+BLOCK_SIZE/2], BLOCK_SIZE/2)
-	else :
+	else:
 		pygame.draw.circle(screen, ORANGE, [block_pos[0]+BLOCK_SIZE/2, block_pos[1]+BLOCK_SIZE/2], BLOCK_SIZE/2)
 
 
@@ -177,24 +177,21 @@ def draw_background(screen):
 			if checker:
 				pygame.draw.rect(screen, DARK_GREEN, (x * BLOCK_SIZE, y * BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE)) 
 				checker = False
-			else :
+			else:
 				checker = True
 
 	pygame.draw.lines(screen, WHITE, True, [[BLOCK_SIZE,BLOCK_SIZE], [BLOCK_SIZE, SCREEN_HEIGHT - BLOCK_SIZE - 2], 
 			[SCREEN_WIDTH - BLOCK_SIZE - 2, SCREEN_HEIGHT - BLOCK_SIZE - 2], [SCREEN_WIDTH - BLOCK_SIZE - 2, BLOCK_SIZE]], 2)
 
 def end_screen(screen, font_title, font_small):
-
 	draw_text(screen, 'GAME OVER', WHITE, font_title, SCREEN_WIDTH/2, SCREEN_HEIGHT/2)
 	draw_text(screen, 'Press Space Play Again', WHITE, font_small, SCREEN_WIDTH/2, SCREEN_HEIGHT/2 + 60)
 	draw_text(screen, 'or enter to go back', WHITE, font_small, SCREEN_WIDTH/2, SCREEN_HEIGHT/2 + 85)
 
 	pygame.display.update()
-
 	time.sleep(0.5)
 
 	while True:
-
 		for event in pygame.event.get():
 			if event.type == pygame.QUIT:
 				sys.exit()
@@ -207,9 +204,9 @@ def end_screen(screen, font_title, font_small):
 
 def draw_wall(screen, wall, block_swallowed, snake):
 
-	if (block_swallowed and snake.score % 2 == 1) :
+	if (block_swallowed and snake.score % 2 == 1):
 		spot_taken = True
-		while spot_taken :
+		while spot_taken:
 			spot_taken = False
 			x = random.randint(1, int(SCREEN_WIDTH/BLOCK_SIZE) - 2) * BLOCK_SIZE
 			y = random.randint(1, int(SCREEN_HEIGHT/BLOCK_SIZE) - 2) * BLOCK_SIZE
@@ -238,11 +235,11 @@ def play_game(screen, font, font_title, font_small, sound_block, speed):
 	block_swallowed_bool = True
 	collision = False
 	color_switch = True
-	player = snake.snake([[3 * BLOCK_SIZE, SCREEN_HEIGHT - 3 * BLOCK_SIZE], [4 * BLOCK_SIZE, SCREEN_HEIGHT - 3 * BLOCK_SIZE], 
+	player = Snake.Snake([[3 * BLOCK_SIZE, SCREEN_HEIGHT - 3 * BLOCK_SIZE], [4 * BLOCK_SIZE, SCREEN_HEIGHT - 3 * BLOCK_SIZE], 
 						[5 * BLOCK_SIZE, SCREEN_HEIGHT - 3 * BLOCK_SIZE], [6 * BLOCK_SIZE, SCREEN_HEIGHT - 3 * BLOCK_SIZE]],
 						0, RED, BRIGHT_RED)
-	# FOR TESTING, change so this handles all speed scores, and implement in other game modes as well
-	game_mode = "Clas_" + str(format(speed, '.2f'))
+	# Game scores are stored in a 12 digit string, ex. "CLAS-0.15-xx" GameMode(4 digits)-Speed(4 digits)-HighScore
+	game_mode = "CLAS-" + str(format(speed, '.2f'))
 	high_score = read_high_score(game_mode)
 
 	while True:
@@ -268,25 +265,25 @@ def play_game(screen, font, font_title, font_small, sound_block, speed):
 
 				if event.type == pygame.KEYDOWN:
 					if event.key == pygame.K_RIGHT:
-						if player.previous_move != 2 :
+						if player.previous_move != 2:
 							player.move = 0
 					elif event.key == pygame.K_DOWN:
-						if player.previous_move !=3 :
+						if player.previous_move !=3:
 							player.move = 1
 					elif event.key == pygame.K_LEFT:
-						if player.previous_move != 0 :	
+						if player.previous_move != 0:	
 							player.move = 2
 					elif event.key == pygame.K_UP:
-						if  player.previous_move != 1 :	
+						if  player.previous_move != 1:	
 							player.move = 3
 					elif event.key == pygame.K_SPACE:
 						pause = True
 
 			player.position = player.move_player(block_swallowed_bool, screen)
 
-			if color_switch :
+			if color_switch:
 				color_switch = False
-			else :
+			else:
 				color_switch = True
 				
 			block_pos = create_block(block_pos, block_swallowed_bool, screen, color_switch, player)
@@ -297,8 +294,8 @@ def play_game(screen, font, font_title, font_small, sound_block, speed):
 				if (speed > 0.03):
 					speed -= 0.0025
 			collision = player.collision_manager()
-			if (collision) :
-				if (int(high_score) < player.score) :
+			if (collision):
+				if (int(high_score) < player.score):
 					write_high_score(game_mode, player.score)
 				block_swallowed_bool = True
 				player.position = player.move_player(block_swallowed_bool, screen)
@@ -312,6 +309,7 @@ def play_game(screen, font, font_title, font_small, sound_block, speed):
 			
 			pygame.display.update()
 
+
 def play_game_2player(screen, font, font_title, font_small, sound_block, speed):
 
 	# VARIABLES USED
@@ -322,11 +320,11 @@ def play_game_2player(screen, font, font_title, font_small, sound_block, speed):
 	collision = [False, False]
 
 	# Set up player start parameters
-	player = snake.snake([[3 * BLOCK_SIZE, SCREEN_HEIGHT - 3 * BLOCK_SIZE], [4 * BLOCK_SIZE, SCREEN_HEIGHT - 3 * BLOCK_SIZE], 
+	player = Snake.Snake([[3 * BLOCK_SIZE, SCREEN_HEIGHT - 3 * BLOCK_SIZE], [4 * BLOCK_SIZE, SCREEN_HEIGHT - 3 * BLOCK_SIZE], 
 						[5 * BLOCK_SIZE, SCREEN_HEIGHT - 3 * BLOCK_SIZE], [6 * BLOCK_SIZE, SCREEN_HEIGHT - 3 * BLOCK_SIZE]],
 						0, RED, BRIGHT_RED)
 
-	opponent = snake.snake([[SCREEN_WIDTH - 3 * BLOCK_SIZE, 3 * BLOCK_SIZE],[SCREEN_WIDTH - 4 * BLOCK_SIZE, 3 * BLOCK_SIZE],
+	opponent = Snake.Snake([[SCREEN_WIDTH - 3 * BLOCK_SIZE, 3 * BLOCK_SIZE],[SCREEN_WIDTH - 4 * BLOCK_SIZE, 3 * BLOCK_SIZE],
 							[SCREEN_WIDTH - 5 * BLOCK_SIZE, 3 * BLOCK_SIZE],[SCREEN_WIDTH - 6 * BLOCK_SIZE, 3 * BLOCK_SIZE]],
 				     		2, PURPLE, BRIGHT_PURPLE)
 
@@ -382,9 +380,9 @@ def play_game_2player(screen, font, font_title, font_small, sound_block, speed):
 			opponent.position = opponent.move_player(block_swallowed_bool[1], screen)
 			
 			# Order of function call is set as such to cause an intentional delay between block generation (mainly to mimic the older game and stay true to it)	
-			if color_switch :
+			if color_switch:
 				color_switch = False
-			else :
+			else:
 				color_switch = True
 
 			if (block_swallowed_bool[0] == True or block_swallowed_bool[1] == True):
@@ -423,6 +421,7 @@ def play_game_2player(screen, font, font_title, font_small, sound_block, speed):
 			
 			pygame.display.update()
 
+
 def play_game_wall(screen, font, font_title, font_small, sound_block, speed):
 
 	# VARIABLES USED
@@ -432,10 +431,11 @@ def play_game_wall(screen, font, font_title, font_small, sound_block, speed):
 	block_swallowed_bool = True
 	collision = False
 	color_switch = True
-	player = snake.snake([[3 * BLOCK_SIZE, SCREEN_HEIGHT - 3 * BLOCK_SIZE], [4 * BLOCK_SIZE, SCREEN_HEIGHT - 3 * BLOCK_SIZE],
+	player = Snake.Snake([[3 * BLOCK_SIZE, SCREEN_HEIGHT - 3 * BLOCK_SIZE], [4 * BLOCK_SIZE, SCREEN_HEIGHT - 3 * BLOCK_SIZE],
 						[5 * BLOCK_SIZE, SCREEN_HEIGHT - 3 * BLOCK_SIZE], [6 * BLOCK_SIZE, SCREEN_HEIGHT - 3 * BLOCK_SIZE]],
 						0, RED, BRIGHT_RED)
-	game_mode = "Wall_" + str(format(speed, '.2f'))
+	# Game scores are stored in a 12 digit string, ex. "CLAS-0.15-xx" GameMode(4 digits)-Speed(4 digits)-HighScore
+	game_mode = "WALL-" + str(format(speed, '.2f'))
 	high_score = read_high_score(game_mode)
 
 	while True:
@@ -461,25 +461,25 @@ def play_game_wall(screen, font, font_title, font_small, sound_block, speed):
 
 				if event.type == pygame.KEYDOWN:
 					if event.key == pygame.K_RIGHT:
-						if player.previous_move != 2 :
+						if player.previous_move != 2:
 							player.move = 0
 					elif event.key == pygame.K_DOWN:
-						if player.previous_move !=3 :
+						if player.previous_move !=3:
 							player.move = 1
 					elif event.key == pygame.K_LEFT:
-						if player.previous_move != 0 :
+						if player.previous_move != 0:
 							player.move = 2
 					elif event.key == pygame.K_UP:
-						if  player.previous_move != 1 :
+						if  player.previous_move != 1:
 							player.move = 3
 					elif event.key == pygame.K_SPACE:
 						pause = True
 
 			player.position = player.move_player(block_swallowed_bool, screen)
 
-			if color_switch :
+			if color_switch:
 				color_switch = False
-			else :
+			else:
 				color_switch = True
 
 
@@ -497,7 +497,7 @@ def play_game_wall(screen, font, font_title, font_small, sound_block, speed):
 			collision = player.collision_manager_wall(wall)
 			if (collision):
 				block_swallowed_bool = True
-				if (int(high_score) < player.score) :
+				if (int(high_score) < player.score):
 					write_high_score(game_mode, player.score)
 				player.position = player.move_player(block_swallowed_bool, screen)
 				draw_text(screen, 'Score: ' + str(player.score), WHITE, font_small, SCREEN_WIDTH/3, 20)
@@ -509,64 +509,4 @@ def play_game_wall(screen, font, font_title, font_small, sound_block, speed):
 
 			pygame.display.update()
 
-# NOT YET USED, WORKS TO CONTROL SNAKE BUT IS VERY DUMB 
-def play_game_auto(screen, font, font_title, font_small, sound_block, speed):
-
-	# VARIABLES USED
-	block_pos = [-1,-1]
-	pause = False
-	block_swallowed_bool = True
-	collision = False
-	color_switch = True
-	player = snake.snake([[3 * BLOCK_SIZE, SCREEN_HEIGHT - 3 * BLOCK_SIZE], [4 * BLOCK_SIZE, SCREEN_HEIGHT - 3 * BLOCK_SIZE],
-						[5 * BLOCK_SIZE, SCREEN_HEIGHT - 3 * BLOCK_SIZE], [6 * BLOCK_SIZE, SCREEN_HEIGHT - 3 * BLOCK_SIZE]],
-						0, RED, BRIGHT_RED)
-
-	while True:
-
-		for event in pygame.event.get():
-			if event.type == pygame.QUIT:
-				sys.exit()
-
-			if event.type == pygame.KEYDOWN:
-				if event.key == pygame.K_SPACE:
-					pause = False
-
-		while not pause:
-
-			time.sleep(speed)
-			screen.fill(GREEN)
-			draw_border(screen)
-
-			for event in pygame.event.get():
-
-				if event.type == pygame.QUIT:
-					sys.exit()
-
-
-			player.move = player.get_move(block_pos)
-			player.position = player.move_player(block_swallowed_bool, screen)
-
-			if color_switch :
-				color_switch = False
-			else :
-				color_switch = True
-
-			block_pos = create_block(block_pos, block_swallowed_bool, screen, color_switch)
-			block_swallowed_bool = player.block_swallowed(block_pos)
-			if (block_swallowed_bool):
-				sound_block.play()
-				player.score += 1
-				if (speed > 0.03):
-					speed -= 0.0025
-			collision = player.collision_manager()
-			if (collision):
-				block_swallowed_bool = True
-				player.position = player.move_player(block_swallowed_bool, screen)
-				draw_text(screen, 'Score: ' + str(player.score), WHITE, font_small, SCREEN_WIDTH/2, 20)
-				return end_screen(screen, font_title, font_small)
-
-			draw_text(screen, 'Score: ' + str(player.score), WHITE, font_small, SCREEN_WIDTH/2, 20)
-
-			pygame.display.update()
 

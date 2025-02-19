@@ -24,7 +24,7 @@ GREEN = (0, 110, 0)
 WHITE = (200, 200, 200)
 GRAY = (160, 160, 160)
 
-class menu: 
+class Menu: 
 
 	font = None
 	font_title = None
@@ -45,7 +45,7 @@ class menu:
 	def draw_menu(self, num_options, options_text):
 		color_switch = True
 
-		while True :
+		while True:
 
 			time.sleep(0.008) # Give the processor some rest, can also add a statement to sleep for longer upon unresponsiveness
 			mouse = pygame.mouse.get_pos()
@@ -53,33 +53,33 @@ class menu:
 
 
 			# Handles events, quit and mouse clicks, tracks what region the mouse clicked on and returns the appropriate int
-			for event in pygame.event.get() :		
-				if event.type == pygame.QUIT :
+			for event in pygame.event.get():		
+				if event.type == pygame.QUIT:
 					sys.exit()
 
-				if event.type == pygame.MOUSEBUTTONDOWN :
-					for i in range(num_options) :
+				if event.type == pygame.MOUSEBUTTONDOWN:
+					for i in range(num_options):
 						if (SCREEN_WIDTH/2 - 130 < mouse[0] < SCREEN_WIDTH/2 + 130 and 
 							SCREEN_HEIGHT/(num_options + 1) * (i + 1) + 15 < mouse[1] < SCREEN_HEIGHT/(num_options + 1) * (i + 1) + 95):
 							return i + 1
 
 			# Highlights buttons if the mouse is on top of them
-			for i in range(num_options) :
+			for i in range(num_options):
 				if (SCREEN_WIDTH/2 - 130 < mouse[0] < SCREEN_WIDTH/2 + 130 and 
 					SCREEN_HEIGHT/(num_options + 1) * (i + 1) + 5 < mouse[1] < SCREEN_HEIGHT/(num_options + 1) * (i + 1) + 105):
 					pygame.draw.rect(self.screen, GREEN, (SCREEN_WIDTH/2 - 130, SCREEN_HEIGHT/(num_options + 1) * (i + 1) + 15, 260, 80), border_radius=15)
 					pygame.draw.rect(self.screen, GRAY, (SCREEN_WIDTH/2 - 130, SCREEN_HEIGHT/(num_options + 1) * (i + 1) + 15, 260, 80), 2, border_radius=15)
 
 			# Draws the Game Title 
-			if color_switch : 
+			if color_switch: 
 				color_switch = False
 				self.draw_text(self.screen, "RETRO SNAKE", GRAY, self.font_title, SCREEN_WIDTH/2, 70)	
-			else :
+			else:
 				color_switch = True	
 				self.draw_text(self.screen, "RETRO SNAKE", WHITE, self.font_title, SCREEN_WIDTH/2, 70)	
 			
 			# Draws the list of options given through the parameters
-			for i in range(len(options_text)) :
+			for i in range(len(options_text)):
 					self.draw_text(self.screen, options_text[i], WHITE, self.font, SCREEN_WIDTH/2, SCREEN_HEIGHT/(num_options + 1) * (i + 1) + 55)	
 
 			pygame.display.update()
@@ -95,24 +95,24 @@ class menu:
 			self.screen.fill(DARK_GREEN)
 
 			# Handles events, quit and mouse functions 
-			for event in pygame.event.get() :
+			for event in pygame.event.get():
 				if event.type == pygame.QUIT:
 					sys.exit()
 
-				if event.type == pygame.MOUSEBUTTONDOWN :
-					if (SCREEN_WIDTH/2 - 130 < mouse[0] < SCREEN_WIDTH/2 + 130 and 465 < mouse[1] < 545) :
+				if event.type == pygame.MOUSEBUTTONDOWN:
+					if (SCREEN_WIDTH/2 - 130 < mouse[0] < SCREEN_WIDTH/2 + 130 and 465 < mouse[1] < 545):
 						return 0
 
 			# Highlights the button the cursor is on top of 
-			if (SCREEN_WIDTH/2 - 130 < mouse[0] < SCREEN_WIDTH/2 + 130 and 465 < mouse[1] < 545) :
+			if (SCREEN_WIDTH/2 - 130 < mouse[0] < SCREEN_WIDTH/2 + 130 and 465 < mouse[1] < 545):
 				pygame.draw.rect(self.screen, GREEN, (SCREEN_WIDTH/2 - 130, 465, 260, 80), border_radius=15)
 				pygame.draw.rect(self.screen, GRAY, (SCREEN_WIDTH/2 - 130, 465, 260, 80), 2, border_radius=15)
 
 			# Draws the Game Title
-			if color_switch : 
+			if color_switch: 
 				color_switch = False
 				self.draw_text(self.screen, "RETRO SNAKE", GRAY, self.font_title, SCREEN_WIDTH/2, 70)	
-			else :
+			else:
 				color_switch = True	
 				self.draw_text(self.screen, "RETRO SNAKE", WHITE, self.font_title, SCREEN_WIDTH/2, 70)
 
