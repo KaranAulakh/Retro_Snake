@@ -15,10 +15,16 @@ import time
 import sys
 
 
-SCREEN_WIDTH = 800
+# POSITION LITERALS TO SIMPLIFY CODE
 SCREEN_HEIGHT = 600
-BLOCK_SIZE = 40
-BUTTON_HALF_WIDTH = 130
+SCREEN_CENTER_X_POS = 400
+
+
+
+BUTTON_LEFT_X_POS = 270
+BUTTON_RIGHT_X_POS = 530
+BUTTON_WIDTH = 260
+BUTTON_HEIGHT = 100
 
 DARK_GREEN = (0, 75, 0)
 GREEN = (0, 110, 0)
@@ -45,16 +51,21 @@ class Menu:
 		screen.blit(text, text_rect)
 
 	# X coordinates are same for all buttons, but I need y coordinates and mouse_pos
-	def is_mouse_over(self, y, height, mouse_pos):
-		return SCREEN_WIDTH/2 - BUTTON_HALF_WIDTH < mouse_pos[0] < SCREEN_WIDTH/2 - BUTTON_HALF_WIDTH + 2 * BUTTON_HALF_WIDTH and y < mouse_pos[1] < y + height
+	def is_mouse_over(self, y, mouse_pos):
+		return BUTTON_LEFT_X_POS < mouse_pos[0] < BUTTON_RIGHT_X_POS and y < mouse_pos[1] < y + BUTTON_HEIGHT
+
+	# Use the number of buttons and current button number to determine the y position of the given button
+	# Add 15 plus an extra option to space down from the title
+	def get_button_y_pos(self, button_num, num_options):
+		return SCREEN_HEIGHT / (num_options + 1) * (button_num + 1) + 15
 
 	def draw_game_title(self):
 		if self.color_switch: 
 			self.color_switch = False
-			self.draw_text(self.screen, "RETRO SNAKE", GRAY, self.font_title, SCREEN_WIDTH/2, 70)	
+			self.draw_text(self.screen, "RETRO SNAKE", GRAY, self.font_title, SCREEN_CENTER_X_POS, 70)	
 		else:
 			self.color_switch = True	
-			self.draw_text(self.screen, "RETRO SNAKE", WHITE, self.font_title, SCREEN_WIDTH/2, 70)	
+			self.draw_text(self.screen, "RETRO SNAKE", WHITE, self.font_title, SCREEN_CENTER_X_POS, 70)	
 
 
 	def draw_menu(self, num_options, options_text):
@@ -73,19 +84,19 @@ class Menu:
 
 				if event.type == pygame.MOUSEBUTTONDOWN:
 					for i in range(num_options):
-						if self.is_mouse_over(SCREEN_HEIGHT/(num_options + 1) * (i + 1) + 5, 100, mouse):
+						if self.is_mouse_over(self.get_button_y_pos(i, num_options), mouse):
 							return i + 1
 
 			# Highlights buttons if the mouse is on top of them
 			for i in range(num_options):
-				if self.is_mouse_over(SCREEN_HEIGHT/(num_options + 1) * (i + 1) + 5, 100, mouse):
-					pygame.draw.rect(self.screen, GREEN, (SCREEN_WIDTH/2 - BUTTON_HALF_WIDTH, SCREEN_HEIGHT/(num_options + 1) * (i + 1) + 15, 2 * BUTTON_HALF_WIDTH, 80), border_radius=15)
-					pygame.draw.rect(self.screen, GRAY, (SCREEN_WIDTH/2 - BUTTON_HALF_WIDTH, SCREEN_HEIGHT/(num_options + 1) * (i + 1) + 15, 2 * BUTTON_HALF_WIDTH, 80), 2, border_radius=15)
+				if self.is_mouse_over(self.get_button_y_pos(i, num_options), mouse):
+					pygame.draw.rect(self.screen, GREEN, (BUTTON_LEFT_X_POS, self.get_button_y_pos(i, num_options), BUTTON_WIDTH, 80), border_radius=15)
+					pygame.draw.rect(self.screen, GRAY, (BUTTON_LEFT_X_POS, self.get_button_y_pos(i, num_options), BUTTON_WIDTH, 80), 2, border_radius=15)
 	
 			
 			# Draws the list of options given through the parameters
 			for i in range(len(options_text)):
-					self.draw_text(self.screen, options_text[i], WHITE, self.font, SCREEN_WIDTH/2, SCREEN_HEIGHT/(num_options + 1) * (i + 1) + 55)	
+					self.draw_text(self.screen, options_text[i], WHITE, self.font, SCREEN_CENTER_X_POS, self.get_button_y_pos(i, num_options) + 40)	
 
 			pygame.display.update()
 
@@ -103,20 +114,20 @@ class Menu:
 					sys.exit()
 
 				if event.type == pygame.MOUSEBUTTONDOWN:
-					if self.is_mouse_over(465, 100, mouse):
+					if self.is_mouse_over(495, mouse):
 						return 0
 
 			# Highlights the button the cursor is on top of 
-			if self.is_mouse_over(465, 100, mouse):
-				pygame.draw.rect(self.screen, GREEN, (SCREEN_WIDTH/2 - BUTTON_HALF_WIDTH, 465, 260, 80), border_radius=15)
-				pygame.draw.rect(self.screen, GRAY, (SCREEN_WIDTH/2 - BUTTON_HALF_WIDTH, 465, 260, 80), 2, border_radius=15)
+			if self.is_mouse_over(495, mouse):
+				pygame.draw.rect(self.screen, GREEN, (BUTTON_LEFT_X_POS, 495, BUTTON_WIDTH, 80), border_radius=15)
+				pygame.draw.rect(self.screen, GRAY, (BUTTON_LEFT_X_POS, 495, BUTTON_WIDTH, 80), 2, border_radius=15)
 
 			# Draws the rest of the page
-			self.draw_text(self.screen, "CONTROLS", WHITE, self.font, SCREEN_WIDTH/2, 220)
-			self.draw_text(self.screen, 'Player 1 (Red): move with arrow keys', WHITE, self.font_small, SCREEN_WIDTH/2, 250)
-			self.draw_text(self.screen, 'Player 2 (Purple): move with w, a, s, and d', WHITE, self.font_small, SCREEN_WIDTH/2, 275)
-			self.draw_text(self.screen, 'Pause at any time using space', WHITE, self.font_small, SCREEN_WIDTH/2, 300)
-			self.draw_text(self.screen, 'Back', WHITE, self.font, SCREEN_WIDTH/2, 505)	
+			self.draw_text(self.screen, "CONTROLS", WHITE, self.font, SCREEN_CENTER_X_POS, 220)
+			self.draw_text(self.screen, 'Player 1 (Red): move with arrow keys', WHITE, self.font_small, SCREEN_CENTER_X_POS, 250)
+			self.draw_text(self.screen, 'Player 2 (Purple): move with w, a, s, and d', WHITE, self.font_small, SCREEN_CENTER_X_POS, 280)
+			self.draw_text(self.screen, 'Pause at any time using space', WHITE, self.font_small, SCREEN_CENTER_X_POS, 310)
+			self.draw_text(self.screen, 'Back', WHITE, self.font, SCREEN_CENTER_X_POS, 535)	
 
 			pygame.display.update()
 
