@@ -2,9 +2,7 @@
 '''        
 	****	SNAKE	****
 	
-  	Snake class, one is created through each game mode, default values are used for player one, red snake and opponent needs to be reset
-  	- This class seems pretty complete!
-
+  	Snake class, a snake is created for every new gameplay (2 for two player mode)
 '''
 
 import pygame
@@ -17,6 +15,7 @@ DARK_BLUE = (0, 0, 75)
 
 
 class Snake:
+	# Position holds the x, y coordinate for each block of the snake
 	position = [[400, 320], [400 + BLOCK_SIZE, 320], [400 + (2 * BLOCK_SIZE), 320], [400 + (3 * BLOCK_SIZE), 320]]
 	move = 0
 	previous_move = 0
