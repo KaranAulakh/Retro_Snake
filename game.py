@@ -83,8 +83,8 @@ def create_block(block_pos, block_swallowed_bool, screen, color_switch, snake):
 	if (block_swallowed_bool):
 		while spot_taken :
 			spot_taken = False
-			x = random.randint(1, SCREEN_WIDTH/BLOCK_SIZE - 2) * BLOCK_SIZE
-			y = random.randint(1, SCREEN_HEIGHT/BLOCK_SIZE - 2) * BLOCK_SIZE
+			x = random.randint(1, int(SCREEN_WIDTH/BLOCK_SIZE) - 2) * BLOCK_SIZE
+			y = random.randint(1, int(SCREEN_HEIGHT/BLOCK_SIZE) - 2) * BLOCK_SIZE
 
 			# Check if the block is in the snake
 			for j in range(len(snake.position)):
