@@ -1,25 +1,17 @@
-
-
 '''                    
     ****   MENU    ****        
                     
 	Handles rendering of each menu page
-	- In the current usage only one menu object is being created
-		- Would it be more helpful to make a page class, and invoke page.render() to showcase it
-		- For optimal performance pages can then be created and stored in a tree that point to the next and prev pages
-			- However, for the sake of this project that seems like overkill and unnecessary  
+	- A better solution would be to create a button class that can be used to store each button and easily displayed using the menu
+ 	- The controls also be treated as a button (or multiple) for simplicity
 '''
 
 import pygame
 import time
 import sys
 
-
-# POSITION LITERALS TO SIMPLIFY CODE
 SCREEN_HEIGHT = 600
 SCREEN_CENTER_X_POS = 400
-
-
 
 BUTTON_LEFT_X_POS = 270
 BUTTON_RIGHT_X_POS = 530
@@ -55,10 +47,11 @@ class Menu:
 		return BUTTON_LEFT_X_POS < mouse_pos[0] < BUTTON_RIGHT_X_POS and y < mouse_pos[1] < y + BUTTON_HEIGHT
 
 	# Use the number of buttons and current button number to determine the y position of the given button
-	# Add 15 plus an extra option to space down from the title
+	# Add 15 and an extra option to space down from the title
 	def get_button_y_pos(self, button_num, num_options):
 		return SCREEN_HEIGHT / (num_options + 1) * (button_num + 1) + 15
 
+	# The title switches between two colors to give it the retro look
 	def draw_game_title(self):
 		if self.color_switch: 
 			self.color_switch = False
@@ -67,7 +60,7 @@ class Menu:
 			self.color_switch = True	
 			self.draw_text(self.screen, "RETRO SNAKE", WHITE, self.font_title, SCREEN_CENTER_X_POS, 70)	
 
-
+	# Draws all regular menus given the number or buttons to draw and the text for each button
 	def draw_menu(self, num_options, options_text):
 		while True:
 			# Give the processor some rest
@@ -75,7 +68,6 @@ class Menu:
 			mouse = pygame.mouse.get_pos()
 			self.screen.fill(DARK_GREEN)
 			self.draw_game_title()
-
 
 			# Handles events, quit and mouse clicks, tracks what region the mouse clicked on and returns the appropriate int
 			for event in pygame.event.get():		
@@ -93,14 +85,13 @@ class Menu:
 					pygame.draw.rect(self.screen, GREEN, (BUTTON_LEFT_X_POS, self.get_button_y_pos(i, num_options), BUTTON_WIDTH, 80), border_radius=15)
 					pygame.draw.rect(self.screen, GRAY, (BUTTON_LEFT_X_POS, self.get_button_y_pos(i, num_options), BUTTON_WIDTH, 80), 2, border_radius=15)
 	
-			
 			# Draws the list of options given through the parameters
 			for i in range(len(options_text)):
 					self.draw_text(self.screen, options_text[i], WHITE, self.font, SCREEN_CENTER_X_POS, self.get_button_y_pos(i, num_options) + 40)	
 
 			pygame.display.update()
 
-	# This method does not support changing screen dimensions, will need to fix this when the time comes
+	# Draws the control menu
 	def draw_controls(self):
 		while True:
 			time.sleep(0.008) 
