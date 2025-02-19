@@ -111,8 +111,8 @@ def create_block_2P(block_pos, block_swallowed_bool, screen, color_switch, snake
 	if (block_swallowed_bool):
 		while spot_taken :
 			spot_taken = False
-			x = random.randint(1, SCREEN_WIDTH/BLOCK_SIZE - 2) * BLOCK_SIZE
-			y = random.randint(1, SCREEN_HEIGHT/BLOCK_SIZE - 2) * BLOCK_SIZE
+			x = random.randint(1, int(SCREEN_WIDTH/BLOCK_SIZE) - 2) * BLOCK_SIZE
+			y = random.randint(1, int(SCREEN_HEIGHT/BLOCK_SIZE) - 2) * BLOCK_SIZE
 
 			# Check if the block is in the snake
 			for j in range(len(snake.position)):
@@ -143,8 +143,8 @@ def create_block_wall(block_pos, block_swallowed_bool, screen, color_switch, wal
 	if (block_swallowed_bool):
 		while spot_taken :
 			spot_taken = False
-			x = random.randint(1, SCREEN_WIDTH/BLOCK_SIZE - 2) * BLOCK_SIZE
-			y = random.randint(1, SCREEN_HEIGHT/BLOCK_SIZE - 2) * BLOCK_SIZE
+			x = random.randint(1, int(SCREEN_WIDTH/BLOCK_SIZE) - 2) * BLOCK_SIZE
+			y = random.randint(1, int(SCREEN_HEIGHT/BLOCK_SIZE) - 2) * BLOCK_SIZE
 
 			# Check if block is in a wall
 			for j in range(len(wall) - 1):
@@ -211,8 +211,8 @@ def draw_wall(screen, wall, block_swallowed, snake):
 		spot_taken = True
 		while spot_taken :
 			spot_taken = False
-			x = random.randint(1, SCREEN_WIDTH/BLOCK_SIZE - 2) * BLOCK_SIZE
-			y = random.randint(1, SCREEN_HEIGHT/BLOCK_SIZE - 2) * BLOCK_SIZE
+			x = random.randint(1, int(SCREEN_WIDTH/BLOCK_SIZE) - 2) * BLOCK_SIZE
+			y = random.randint(1, int(SCREEN_HEIGHT/BLOCK_SIZE) - 2) * BLOCK_SIZE
 
 			# Check if the wall is in the snake
 			for j in range(len(snake.position)):

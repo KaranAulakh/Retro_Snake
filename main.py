@@ -58,73 +58,62 @@ play = True
 option = 0 # Handles return values from menu's to determine where to go next
 
 
+def choose_difficulity():
+	while True:
+		option = menu.draw_menu(4, ["Novice", "Intermediate", "Expert", "Back"])
+		if option == 1:
+			return 0.10
+		elif option == 2:
+			return 0.15
+		elif option == 3:
+			return 0.20
+		elif option == 4:
+			return None
+
 
 while True :
 	play = True
 	back = False
 	option = -1
+	game_speed = 0.10
 
 	option = menu.draw_menu(4, ["Classic", "Walls", "2 Player Battle", "Controls"])
 
+
 	# Entering Classic Game mode
-	if option == 1 :
-		while True :
-			option = menu.draw_menu(4, ["Novice", "Intermediate", "Expert", "Back"])
-			if option == 1 :
-				play = True
-				while (play):
-					play = game.play_game(menu.screen, menu.font, menu.font_title, menu.font_small, sound_block, 0.20)
-			if option == 2 :
-				play = True
-				while (play):
-					play = game.play_game(menu.screen, menu.font, menu.font_title, menu.font_small, sound_block, 0.15)
-			if option == 3 :
-				play = True
-				while (play):
-					play = game.play_game(menu.screen, menu.font, menu.font_title, menu.font_small, sound_block, 0.10)
-			if option == 4 :
-				break
+	if option == 1:
+		game_speed = choose_difficulity()
+		if game_speed != None:
+			play = True
+			while (play):
+				play = game.play_game(menu.screen, menu.font, menu.font_title, menu.font_small, sound_block, game_speed)
+		else:
+			break
 
 	# Entering Walls Game Mode
-	elif option == 2 :
-		while True :
-			option = menu.draw_menu(4, ["Novice", "Intermediate", "Expert", "Back"])
-			if option == 1 :
-				play = True
-				while (play):
-					play = game.play_game_wall(menu.screen, menu.font, menu.font_title, menu.font_small, sound_block, 0.20)
-			if option == 2 :
-				play = True
-				while (play):
-					play = game.play_game_wall(menu.screen, menu.font, menu.font_title, menu.font_small, sound_block, 0.15)
-			if option == 3 :
-				play = True
-				while (play):
-					play = game.play_game_wall(menu.screen, menu.font, menu.font_title, menu.font_small, sound_block, 0.10)
-			if option == 4 :
-				break
+	elif option == 2:
+		game_speed = choose_difficulity()
+		if game_speed != None:
+			play = True
+			while (play):
+				play = game.play_game_wall(menu.screen, menu.font, menu.font_title, menu.font_small, sound_block, game_speed)
+		else:
+			break
+		
 
 	# Entering 2 Player Game mode
-	elif option == 3 :
-		while True :
-			option = menu.draw_menu(4, ["Novice", "Intermediate", "Expert", "Back"])
-			if option == 1 :
-				play = True
-				while (play):
-					play = game.play_game_2player(menu.screen, menu.font, menu.font_title, menu.font_small, sound_block, 0.20)
-			if option == 2 :
-				play = True
-				while (play):
-					play = game.play_game_2player(menu.screen, menu.font, menu.font_title, menu.font_small, sound_block, 0.15)
-			if option == 3 :
-				play = True
-				while (play):
-					play = game.play_game_2player(menu.screen, menu.font, menu.font_title, menu.font_small, sound_block, 0.10)
-			if option == 4 :
-				break
+	elif option == 3:
+		game_speed = choose_difficulity()
+		if game_speed != None:
+			play = True
+			while (play):
+				play = game.play_game_2player(menu.screen, menu.font, menu.font_title, menu.font_small, sound_block, game_speed)
+		else:
+			break
 
 	# Entering Controls
-	elif option == 4 :
-		while ( option != 0) :
+	elif option == 4:
+		while ( option != 0):
 			option = menu.draw_controls()
+
 
