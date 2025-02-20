@@ -115,9 +115,9 @@ class Menu:
 
 			# Draws the rest of the page
 			self.draw_text(self.screen, "CONTROLS", WHITE, self.font, SCREEN_CENTER_X_POS, 220)
-			self.draw_text(self.screen, 'Player 1 (Red): move with arrow keys', WHITE, self.font_small, SCREEN_CENTER_X_POS, 250)
-			self.draw_text(self.screen, 'Player 2 (Purple): move with w, a, s, and d', WHITE, self.font_small, SCREEN_CENTER_X_POS, 280)
-			self.draw_text(self.screen, 'Pause at any time using space', WHITE, self.font_small, SCREEN_CENTER_X_POS, 310)
+			self.draw_text(self.screen, 'Player 1 (Red): move with arrow keys', WHITE, self.font_small, SCREEN_CENTER_X_POS, 275)
+			self.draw_text(self.screen, 'Player 2 (Purple): move with w, a, s, and d', WHITE, self.font_small, SCREEN_CENTER_X_POS, 325)
+			self.draw_text(self.screen, 'Pause at any time using space', WHITE, self.font_small, SCREEN_CENTER_X_POS, 375)
 			self.draw_text(self.screen, 'Back', WHITE, self.font, SCREEN_CENTER_X_POS, 535)	
 
 			pygame.display.update()

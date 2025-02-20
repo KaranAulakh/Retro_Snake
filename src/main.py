@@ -50,11 +50,11 @@ def choose_difficulity():
 	while True:
 		option = menu.draw_menu(4, ["Novice", "Intermediate", "Expert", "Back"])
 		if option == 1:
-			return 0.10
+			return 0.20
 		elif option == 2:
 			return 0.15
 		elif option == 3:
-			return 0.20
+			return 0.10
 		elif option == 4:
 			return None
 
